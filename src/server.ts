@@ -5,8 +5,10 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
-import { sql } from './db/connection.ts'
 import { env } from './env.ts'
+import { creatQuestionRoute } from './routes/create-question.ts'
+import { createRoomsRoute } from './routes/create-rooms.ts'
+import { getRoomQuestionsRoute } from './routes/get-room-questions.ts'
 import { getRoomsRoute } from './routes/get-rooms.ts'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -23,5 +25,8 @@ app.get('/health', () => {
 })
 
 app.register(getRoomsRoute)
+app.register(createRoomsRoute)
+app.register(getRoomQuestionsRoute)
+app.register(creatQuestionRoute)
 
 app.listen({ port: env.PORT })
